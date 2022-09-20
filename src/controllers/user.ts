@@ -5,12 +5,15 @@ import * as jwt from 'jsonwebtoken';
 import {sign} from 'jsonwebtoken';
 import {ObjectId} from 'mongodb';
 import * as crypto from 'crypto';
-
 import {User} from '../models/user';
-
 import {BaseError} from '../util/error';
-
 import {createTransport} from 'nodemailer';
+import { createServer } from "http";
+import { io, Socket}  from '../util/socketConnect';
+
+
+
+
 
 let transport = createTransport({
     host: "smtp.mailtrap.io",
@@ -239,4 +242,10 @@ export const resetPassword: core.RequestHandler = async(req, res, next) => {
         console.log(error);
         next(error);
     }
+}
+
+export const chat:core.RequestHandler = async(req, res, next) => {
+    
+
+    res.send('yes');
 }

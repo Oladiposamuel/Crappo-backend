@@ -36,7 +36,7 @@ class User {
                             description: " 'password' is required and is a string "
                         },
                         isVerified: {
-                            bsonType: "boolean",
+                            bsonType: "bool",
                             description: " 'isVerified is not required. It is a boolean "
                         }
                     }
@@ -61,7 +61,7 @@ class User {
     }
     static updateUserVerification(id) {
         const db = (0, database_1.getDb)();
-        return db.collection('user').updateOne({ _id: id }, { $set: { isVerified: true } })
+        return db.collection('user').updateOne({ _id: id }, { $set: { isVerified: "true" } })
             .then((user) => {
             return user;
         })

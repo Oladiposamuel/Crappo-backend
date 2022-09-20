@@ -28,7 +28,7 @@ export class User {
 
     save() {
         const db = getDb();
-        return db.collection(
+        return db.collection( 
         'user', 
         {validator: {
             $jsonSchema: {
@@ -54,7 +54,7 @@ export class User {
                         description: " 'password' is required and is a string "
                     },
                     isVerified: {
-                        bsonType: "boolean",
+                        bsonType: "bool",
                         description: " 'isVerified is not required. It is a boolean "
                     }
                 }
@@ -81,7 +81,7 @@ export class User {
 
     static updateUserVerification(id: ObjectId) {
         const db = getDb();
-        return db.collection('user').updateOne({_id: id}, {$set: {isVerified: true}})
+        return db.collection('user').updateOne({_id: id}, {$set: {isVerified: "true"}})
         .then((user: databaseUser) => { 
             return user;
         })

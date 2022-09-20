@@ -1,10 +1,22 @@
 import express from 'express';
 import {mongoConnect} from './util/database';
 import core from 'express-serve-static-core';
+import cors from 'cors';
+import { createServer } from "http";
+import { io }  from './util/socketConnect';
+
 
 import userRoutes from './routes/user';
 
 const app = express();
+
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -21,8 +33,26 @@ app.use((error: any, req: express.Request, res: express.Response ,next: express.
     })
 })
 
+
 mongoConnect(() => {
-    app.listen(process.env.PORT || 8080, () => {
+
+    const httpServer = createServer(app);
+
+
+    httpServer.listen(process.env.PORT || 8080, () => {
+
+        //const io = socketConnect.init(httpServer);
+
         console.log('Server is running!');
+        // io.on("connection", (socket) => {
+        //     console.log('Client connected!');
+
+        //     // socket.on('sendMessage', (data) => {
+        //     //     console.log(data); 
+        //     // })
+        // });
     }) 
+
+    io.attach(httpServer); 
+
 }) 
