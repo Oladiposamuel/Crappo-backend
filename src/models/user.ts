@@ -4,26 +4,17 @@ import {ObjectId} from 'mongodb';
 
 type databaseUser = {
     _id: ObjectId;
-    firstName: string;
-    lastName: string;
-    email: string;
+    avatarName: string;
     password: string;
-    isVerified: boolean;
 }
 
 export class User {
-    firstName: string;
-    lastName: string;
-    email: string;
+    avatarName: string;
     password: string;
-    isVerified: boolean;
 
-    constructor(firstName: string, lastName: string, email: string, password: string ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    constructor(avatarName: string, password: string ) {
+        this.avatarName = avatarName;
         this.password = password;
-        this.isVerified = false;
     }
 
     save() {
@@ -33,30 +24,19 @@ export class User {
         {validator: {
             $jsonSchema: {
                 bsonType: "object",
-                required: ["firstName", "lastName", "email", "password"],
+                title: "Avatar Object Validation",
+                required: ["avatarName","password"],
                 additionalProperties: false,
                 properties: {
-                    _id: {},
-                    firstName: {
+                    _id: {}, 
+                    avatarName: {
                         bsonType: "string",
-                        description: " 'firstName' is required and is a string"
-                    },
-                    lastName: {
-                        bsonType: "string",
-                        description: " 'lastName' is required and is a string "
-                    },
-                    email: {
-                        bsonType: "string",
-                        description: " 'email' is required and is a string "
+                        description: " 'avatarName' is required and is a string"
                     },
                     password: {
                         bsonType: "string",
                         description: " 'password' is required and is a string "
                     },
-                    isVerified: {
-                        bsonType: "bool",
-                        description: " 'isVerified is not required. It is a boolean "
-                    }
                 }
             }
         }}).insertOne(this)
@@ -68,9 +48,9 @@ export class User {
         })
     }
 
-    static findUser(email: string) {
+    static findUser(avatarName: string) {
         const db = getDb();
-        return db.collection('user').findOne({email: email})
+        return db.collection('user').findOne({avatarName: avatarName})
         .then((user: databaseUser) => {
             return user;
         })

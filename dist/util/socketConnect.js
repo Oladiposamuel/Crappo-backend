@@ -22,9 +22,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Socket = exports.io = void 0;
 const socket_io_1 = require("socket.io");
+const user_1 = require("../models/user");
 const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
@@ -48,11 +58,20 @@ exports.io.on("connection", (socket) => {
     console.log(userNum);
     let user = 'User' + userNum;
     let socketId;
-    socket.on('sendMessage', (data) => {
+    let avatarName;
+    socket.on('sendMessage', (data) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(data);
-        //console.log('socket id from backend: ' + socket.id);
         socketId = socket.id;
+        avatarName = data.avatarName;
+        if (avatarName !== null) {
+            const avatarDetails = yield user_1.User.findUser(avatarName);
+            //console.log(avatarDetails); 
+            const verifiedAvatarName = avatarDetails.avatarName;
+            if (verifiedAvatarName) {
+                user = verifiedAvatarName;
+            }
+        }
         data = Object.assign(Object.assign({}, data), { user, socketId });
         exports.io.emit('message', data);
-    });
+    }));
 });

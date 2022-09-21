@@ -3,42 +3,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const database_1 = require("../util/database");
 class User {
-    constructor(firstName, lastName, email, password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    constructor(avatarName, password) {
+        this.avatarName = avatarName;
         this.password = password;
-        this.isVerified = false;
     }
     save() {
         const db = (0, database_1.getDb)();
         return db.collection('user', { validator: {
                 $jsonSchema: {
                     bsonType: "object",
-                    required: ["firstName", "lastName", "email", "password"],
+                    title: "Avatar Object Validation",
+                    required: ["avatarName", "password"],
                     additionalProperties: false,
                     properties: {
                         _id: {},
-                        firstName: {
+                        avatarName: {
                             bsonType: "string",
-                            description: " 'firstName' is required and is a string"
-                        },
-                        lastName: {
-                            bsonType: "string",
-                            description: " 'lastName' is required and is a string "
-                        },
-                        email: {
-                            bsonType: "string",
-                            description: " 'email' is required and is a string "
+                            description: " 'avatarName' is required and is a string"
                         },
                         password: {
                             bsonType: "string",
                             description: " 'password' is required and is a string "
                         },
-                        isVerified: {
-                            bsonType: "bool",
-                            description: " 'isVerified is not required. It is a boolean "
-                        }
                     }
                 }
             } }).insertOne(this)
@@ -49,9 +35,9 @@ class User {
             console.log(error);
         });
     }
-    static findUser(email) {
+    static findUser(avatarName) {
         const db = (0, database_1.getDb)();
-        return db.collection('user').findOne({ email: email })
+        return db.collection('user').findOne({ avatarName: avatarName })
             .then((user) => {
             return user;
         })

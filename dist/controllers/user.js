@@ -35,15 +35,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.chat = exports.resetPassword = exports.forgotPassword = exports.login = exports.verify = exports.signup = void 0;
+exports.resetPassword = exports.forgotPassword = exports.login = exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
-const jsonwebtoken_1 = require("jsonwebtoken");
 const mongodb_1 = require("mongodb");
 const crypto = __importStar(require("crypto"));
 const user_1 = require("../models/user");
 const error_1 = require("../util/error");
 const nodemailer_1 = require("nodemailer");
+const express_validator_1 = require("express-validator");
 let transport = (0, nodemailer_1.createTransport)({
     host: "smtp.mailtrap.io",
     port: 2525,
@@ -53,74 +53,80 @@ let transport = (0, nodemailer_1.createTransport)({
     }
 });
 const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
-    try {
-        const checkUser = yield user_1.User.findUser(email);
-        if (checkUser) {
-            const error = new error_1.BaseError(400, 'You are signed up! Log in!');
-            throw error;
+    const errorValidation = (0, express_validator_1.validationResult)(req);
+    console.log(errorValidation);
+    if (errorValidation.isEmpty()) {
+        const avatarName = req.body.avatarName.toLowerCase();
+        const password = req.body.password.toLowerCase();
+        try {
+            const checkUser = yield user_1.User.findUser(avatarName);
+            if (checkUser) {
+                const error = new error_1.BaseError(400, 'You are signed up! Log in!');
+                throw error;
+            }
+            const hashPassword = yield bcrypt_1.default.hash(password, 10);
+            const user = new user_1.User(avatarName, hashPassword);
+            const savedUser = yield user.save();
+            console.log(savedUser);
+            const savedUserDetails = yield user_1.User.findUser(avatarName);
+            // const verificationToken = sign({
+            //     userId: savedUserDetails._id,
+            //     email: savedUserDetails.email,
+            // },
+            // 'userverificationsecretprivatekey',
+            // {expiresIn: '1h'}
+            // );
+            // const url = `http://localhost:8080/verify`;
+            // transport.sendMail({
+            //     to: email,
+            //     subject: 'Verify Account',
+            //     html: `Click <a href = ${url} >here</a> to verify your email. Link expires in an hour.`
+            // })
+            res.status(201).send({ hasError: false, code: 201, message: 'User created!', user: savedUserDetails });
         }
-        const hashPassword = yield bcrypt_1.default.hash(password, 10);
-        const user = new user_1.User(firstName, lastName, email, hashPassword);
-        const savedUser = yield user.save();
-        console.log(savedUser);
-        const savedUserDetails = yield user_1.User.findUser(email);
-        const verificationToken = (0, jsonwebtoken_1.sign)({
-            userId: savedUserDetails._id,
-            email: savedUserDetails.email,
-        }, 'userverificationsecretprivatekey', { expiresIn: '1h' });
-        const url = `http://localhost:8080/verify`;
-        transport.sendMail({
-            to: email,
-            subject: 'Verify Account',
-            html: `Click <a href = ${url} >here</a> to verify your email. Link expires in an hour.`
-        });
-        res.status(201).send({ hasError: false, code: 201, message: 'User created!', user: savedUser, verificationToken: verificationToken });
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
     }
-    catch (error) {
-        console.log(error);
-        next(error);
+    else {
+        res.status(422).send({ message: 'Enter valid password' });
     }
 });
 exports.signup = signup;
-const verify = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authHeader = req.get('Authorization');
-    if (!authHeader) {
-        const error = new error_1.BaseError(404, 'Header not found!');
-        throw error;
-    }
-    const token = authHeader.split(' ')[1];
-    try {
-        const decodedToken = jwt.verify(token, 'userverificationsecretprivatekey');
-        console.log(decodedToken);
-        if (!decodedToken) {
-            const error = new error_1.BaseError(401, 'Not authenticated');
-            throw error;
-        }
-        const user = yield user_1.User.findUser(decodedToken.email);
-        if (!user) {
-            const error = new error_1.BaseError(404, 'User not found!');
-            throw error;
-        }
-        const id = new mongodb_1.ObjectId(user._id);
-        const updatedUser = yield user_1.User.updateUserVerification(id);
-        const updatedSavedUser = yield user_1.User.findUser(decodedToken.email);
-        res.status(201).send({ hasError: false, code: 201, message: 'User verified!', updatedSavedUser: updatedSavedUser });
-    }
-    catch (error) {
-        console.log(error);
-        next(error);
-    }
-});
-exports.verify = verify;
+// export const verify: core.RequestHandler = async (req, res, next) => {
+//     const authHeader = req.get('Authorization');
+//     if (!authHeader) {
+//         const error = new BaseError(404, 'Header not found!');
+//         throw error;
+//     }
+//     const token = authHeader.split(' ')[1];
+//     try {
+//         const decodedToken = jwt.verify(token, 'userverificationsecretprivatekey') as JwtPayload;
+//         console.log(decodedToken);
+//         if(!decodedToken) {
+//             const error = new BaseError(401, 'Not authenticated'); 
+//             throw error;
+//         }
+//         const user = await User.findUser(decodedToken.email);
+//         if (!user) {
+//             const error = new BaseError(404, 'User not found!');
+//             throw error;
+//         }
+//         const id =  new ObjectId(user._id);
+//         const updatedUser = await User.updateUserVerification(id);
+//         const updatedSavedUser = await User.findUser(decodedToken.email);
+//         res.status(201).send({hasError: false, code: 201, message: 'User verified!', updatedSavedUser: updatedSavedUser});
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+// }
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const email = req.body.email;
-    const password = req.body.password;
+    const avatarName = req.body.avatarName.toLowerCase();
+    const password = req.body.password.toLowerCase();
     try {
-        const savedUser = yield user_1.User.findUser(email);
+        const savedUser = yield user_1.User.findUser(avatarName);
         //console.log(savedUser);
         if (!savedUser) {
             const error = new error_1.BaseError(404, 'User not found! sign up!');
@@ -132,11 +138,14 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
             const error = new error_1.BaseError(401, 'Wrong password!');
             throw error;
         }
-        const token = (0, jsonwebtoken_1.sign)({
-            userId: savedUser._id,
-            email: savedUser.email,
-        }, 'usersecretprivatekey', { expiresIn: '10h' });
-        res.status(200).send({ hasError: false, code: 200, message: 'Logged In!', user: savedUser, token: token });
+        // const token = sign({
+        //     userId: savedUser._id,
+        //     email: savedUser.email,
+        // },
+        // 'usersecretprivatekey',
+        // {expiresIn: '10h'}
+        // );
+        res.status(200).send({ hasError: false, code: 200, message: 'Logged In!', user: savedUser });
     }
     catch (error) {
         console.log(error);
@@ -207,7 +216,3 @@ const resetPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.resetPassword = resetPassword;
-const chat = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send('yes');
-});
-exports.chat = chat;

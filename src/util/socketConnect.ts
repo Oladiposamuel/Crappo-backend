@@ -34,12 +34,25 @@ io.on("connection", (socket) => {
 
     let user = 'User' + userNum;
     let socketId;
+    let avatarName;
 
 
-    socket.on('sendMessage', (data) => {
+    socket.on('sendMessage', async (data) => {
         console.log(data); 
-        //console.log('socket id from backend: ' + socket.id);
+        
         socketId = socket.id;
+
+        avatarName = data.avatarName;
+
+        if(avatarName !== null) {
+            const avatarDetails = await User.findUser(avatarName);
+            //console.log(avatarDetails); 
+            const verifiedAvatarName = avatarDetails.avatarName;
+    
+            if(verifiedAvatarName) {
+                user = verifiedAvatarName
+            }
+        }
 
         data= {...data, user, socketId};
 
