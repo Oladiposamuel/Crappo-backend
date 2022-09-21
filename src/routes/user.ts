@@ -3,7 +3,7 @@ import express  from 'express';
 
 const router = express.Router();
 
-import { forgotPassword, login, signup, resetPassword} from '../controllers/user';
+import { forgotPassword, login, signup, resetPassword, test} from '../controllers/user';
 
 import {check, body} from 'express-validator';
 
@@ -24,6 +24,8 @@ router.post('/login', login);
 router.patch('/forgotpassword', forgotPassword);
 
 router.patch('/resetpassword', resetPassword);
+
+router.get('/test', test)
 
 
 export default router;

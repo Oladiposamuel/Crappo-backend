@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.forgotPassword = exports.login = exports.signup = void 0;
+exports.test = exports.resetPassword = exports.forgotPassword = exports.login = exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
 const mongodb_1 = require("mongodb");
@@ -216,3 +216,7 @@ const resetPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.resetPassword = resetPassword;
+const test = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send('Okay!');
+});
+exports.test = test;

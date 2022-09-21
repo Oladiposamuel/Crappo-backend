@@ -248,3 +248,7 @@ export const resetPassword: core.RequestHandler = async(req, res, next) => {
         next(error);
     }
 }
+
+export const test: core.RequestHandler = async (req, res, next) => {
+    res.send('Okay!')
+}

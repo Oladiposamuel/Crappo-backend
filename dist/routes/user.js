@@ -15,4 +15,5 @@ router.put('/signup', [
 router.post('/login', user_1.login);
 router.patch('/forgotpassword', user_1.forgotPassword);
 router.patch('/resetpassword', user_1.resetPassword);
+router.get('/test', user_1.test);
 exports.default = router;
