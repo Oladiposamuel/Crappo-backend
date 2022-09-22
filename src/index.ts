@@ -17,16 +17,16 @@ const app = express();
 
 // }
 
-// const allowedOrigins = ['*'];
+const allowedOrigins = ['*'];
 
-// const options: cors.CorsOptions = {
-//   origin: allowedOrigins,
-//   credentials: true,
-//   preflightContinue: false,
-//   optionsSuccessStatus: 204
-// };
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
 
-//app.use(cors(options));
+app.use(cors(options));
 
 app.use(express.json());
 
