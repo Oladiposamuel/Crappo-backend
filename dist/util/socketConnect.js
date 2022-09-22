@@ -40,6 +40,7 @@ exports.io = new socket_io_1.Server({
     cors: {
         origin: "*",
         methods: ["GET", "POST"],
+        credentials: true,
     },
 });
 let userNum;
