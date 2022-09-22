@@ -11,7 +11,7 @@ import userRoutes from './routes/user';
 const app = express();
 
 const corsOptions = {
-    origin: '*',
+    origin: 'ttp://localhost:3000',
     // credentials: true,
     // optionSuccessStatus: 200,
 }
