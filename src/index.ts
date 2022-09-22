@@ -17,7 +17,7 @@ const app = express();
 
 // }
 
-const allowedOrigins = ['http://localhost:8080'];
+const allowedOrigins = ['*'];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
