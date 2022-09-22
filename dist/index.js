@@ -19,7 +19,7 @@ const allowedOrigins = ['*'];
 const options = {
     origin: allowedOrigins,
     credentials: true,
-    preflightContinue: false,
+    preflightContinue: true,
     optionsSuccessStatus: 204
 };
 app.use((0, cors_1.default)(options));

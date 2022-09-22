@@ -22,7 +22,7 @@ const allowedOrigins = ['*'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
   credentials: true,
-  preflightContinue: false,
+  preflightContinue: true,
   optionsSuccessStatus: 204
 };
 
