@@ -10,12 +10,16 @@ const http_1 = require("http");
 const socketConnect_1 = require("./util/socketConnect");
 const user_1 = __importDefault(require("./routes/user"));
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: '*',
-    credentials: true,
-    optionSuccessStatus: 200,
+// const corsOptions = {
+//     origin: '*',
+//     credentials: true,
+//     optionSuccessStatus: 200,
+// }
+const allowedOrigins = ['http://localhost:3000'];
+const options = {
+    origin: allowedOrigins
 };
-app.use((0, cors_1.default)(corsOptions));
+app.use((0, cors_1.default)(options));
 app.use(express_1.default.json());
 app.use('/', user_1.default);
 app.use((error, req, res, next) => {
