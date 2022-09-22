@@ -22,7 +22,7 @@ const allowedOrigins = ['http://localhost:8080'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
   credentials: true,
-  preflightContinue: false,
+  preflightContinue: true,
   optionsSuccessStatus: 204
 };
 
