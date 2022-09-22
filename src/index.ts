@@ -10,11 +10,11 @@ import userRoutes from './routes/user';
 
 const app = express();
 
-// const corsOptions = {
-//     origin: '*',
-//     credentials: true,
-//     optionSuccessStatus: 200,
-// }
+const corsOptions = {
+    origin: '*',
+    // credentials: true,
+    // optionSuccessStatus: 200,
+}
 
 // const allowedOrigins = ['*'];
 
@@ -25,7 +25,7 @@ const app = express();
 //   optionsSuccessStatus: 204
 // };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
