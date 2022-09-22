@@ -38,9 +38,9 @@ const user_1 = require("../models/user");
 const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
-        origin: "https://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST"],
-    }
+    },
 });
 let userNum;
 exports.Socket = {
