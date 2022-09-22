@@ -20,7 +20,8 @@ const app = express();
 const allowedOrigins = ['*'];
 
 const options: cors.CorsOptions = {
-  origin: allowedOrigins
+  origin: allowedOrigins,
+  credentials: true
 };
 
 app.use(cors(options));

@@ -17,7 +17,8 @@ const app = (0, express_1.default)();
 // }
 const allowedOrigins = ['*'];
 const options = {
-    origin: allowedOrigins
+    origin: allowedOrigins,
+    credentials: true
 };
 app.use((0, cors_1.default)(options));
 app.use(express_1.default.json());
