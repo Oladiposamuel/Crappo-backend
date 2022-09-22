@@ -15,11 +15,11 @@ const app = (0, express_1.default)();
 //     credentials: true,
 //     optionSuccessStatus: 200,
 // }
-const allowedOrigins = ['http://localhost:8080'];
+//const allowedOrigins = ['http://localhost:8080'];
 const options = {
-    origin: allowedOrigins,
+    origin: "*",
     credentials: true,
-    preflightContinue: true,
+    preflightContinue: false,
     optionsSuccessStatus: 204
 };
 app.use((0, cors_1.default)(options));
