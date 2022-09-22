@@ -17,10 +17,10 @@ const app = express();
 
 // }
 
-//const allowedOrigins = ['http://localhost:8080'];
+const allowedOrigins = ['*'];
 
 const options: cors.CorsOptions = {
-  origin: "*",
+  origin: allowedOrigins,
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204
