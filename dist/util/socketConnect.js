@@ -39,7 +39,7 @@ const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
         origin: "*",
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
     }
 });
 let userNum;
