@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 
 export const io = new Server({
     cors: {
-        origin: "http://localhost.com",
+        origin: "http://localhost:8080",
         methods: ["GET", "POST"],
         credentials: true,
     },
