@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = require("./util/database");
-const cors_1 = __importDefault(require("cors"));
 const http_1 = require("http");
 const socketConnect_1 = require("./util/socketConnect");
 const user_1 = __importDefault(require("./routes/user"));
@@ -15,12 +14,14 @@ const app = (0, express_1.default)();
 //     credentials: true,
 //     optionSuccessStatus: 200,
 // }
-const allowedOrigins = ['*'];
-const options = {
-    origin: allowedOrigins,
-    credentials: true,
-};
-app.use((0, cors_1.default)(options));
+// const allowedOrigins = ['*'];
+// const options: cors.CorsOptions = {
+//   origin: allowedOrigins,
+//   credentials: true,
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204
+// };
+//app.use(cors(options));
 app.use(express_1.default.json());
 app.use('/', user_1.default);
 app.use((error, req, res, next) => {
