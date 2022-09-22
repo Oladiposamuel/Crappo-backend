@@ -14,7 +14,6 @@ const app = express();
 //     origin: '*',
 //     credentials: true,
 //     optionSuccessStatus: 200,
-
 // }
 
 // const allowedOrigins = ['*'];
@@ -26,7 +25,7 @@ const app = express();
 //   optionsSuccessStatus: 204
 // };
 
-// app.use(cors(options));
+app.use(cors());
 
 app.use(express.json());
 
