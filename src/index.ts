@@ -11,7 +11,7 @@ import userRoutes from './routes/user';
 const app = express();
 
 const corsOptions = {
-    origin: '*',
+    origin: '"https://effortless-pudding-16de08.netlify.app',
     credentials: true,
     //optionSuccessStatus: 200,
 }
