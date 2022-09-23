@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 
 export const io = new Server({
     cors: {
-        origin: "http://localhost",
+        origin: "https://effortless-pudding-16de08.netlify.app",
         methods: ["GET", "POST"],
         credentials: true,
     },
