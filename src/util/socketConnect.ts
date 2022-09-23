@@ -9,6 +9,7 @@ export const io = new Server({
         methods: ["GET", "POST"],
         credentials: true,
     },
+    transports: ['websocket', 'polling'],
 });
 
 

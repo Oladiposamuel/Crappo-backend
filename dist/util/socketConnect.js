@@ -42,6 +42,7 @@ exports.io = new socket_io_1.Server({
         methods: ["GET", "POST"],
         credentials: true,
     },
+    transports: ['websocket', 'polling'],
 });
 let userNum;
 exports.Socket = {
