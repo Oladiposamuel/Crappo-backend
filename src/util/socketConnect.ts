@@ -5,11 +5,10 @@ import * as crypto from 'crypto';
 
 export const io = new Server({
     cors: {
-        origin: "*",
+        origin: "https://guileless-alfajores-23e7ff.netlify.app",
         methods: ["GET", "POST"],
-        //credentials: true,
+        credentials: true,
     },
-    transports: ['websocket', 'polling'],
 });
 
 

@@ -38,11 +38,10 @@ const user_1 = require("../models/user");
 const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
-        origin: "*",
+        origin: "https://guileless-alfajores-23e7ff.netlify.app",
         methods: ["GET", "POST"],
-        //credentials: true,
+        credentials: true,
     },
-    transports: ['websocket', 'polling'],
 });
 let userNum;
 exports.Socket = {

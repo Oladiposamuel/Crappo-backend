@@ -11,8 +11,8 @@ import userRoutes from './routes/user';
 const app = express();
 
 const corsOptions = {
-    origin: '*',
-    //credentials: true,
+    origin: 'https://guileless-alfajores-23e7ff.netlify.app',
+    credentials: true,
     //optionSuccessStatus: 200,
 }
 
