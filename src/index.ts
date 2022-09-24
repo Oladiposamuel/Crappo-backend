@@ -11,7 +11,7 @@ import userRoutes from './routes/user';
 const app = express();
 
 const corsOptions = {
-    origin: false,
+    origin: "*",
     credentials: true,
     //optionSuccessStatus: 200,
 }
