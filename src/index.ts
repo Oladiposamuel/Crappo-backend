@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
     origin: 'https://capable-pasca-217f6b.netlify.app',
     credentials: true,
-    optionSuccessStatus: 200,
+    //optionSuccessStatus: 200,
 }
 
 // const allowedOrigins = ['*'];
