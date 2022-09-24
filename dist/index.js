@@ -12,7 +12,7 @@ const user_1 = __importDefault(require("./routes/user"));
 const app = (0, express_1.default)();
 const corsOptions = {
     origin: '*',
-    credentials: true,
+    //credentials: true,
     //optionSuccessStatus: 200,
 };
 // const allowedOrigins = ['*'];

@@ -40,7 +40,7 @@ exports.io = new socket_io_1.Server({
     cors: {
         origin: "*",
         methods: ["GET", "POST"],
-        credentials: true,
+        //credentials: true,
     },
     transports: ['websocket', 'polling'],
 });

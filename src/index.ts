@@ -12,7 +12,7 @@ const app = express();
 
 const corsOptions = {
     origin: '*',
-    credentials: true,
+    //credentials: true,
     //optionSuccessStatus: 200,
 }
 
