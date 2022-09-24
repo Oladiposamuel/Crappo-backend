@@ -11,7 +11,7 @@ import userRoutes from './routes/user';
 const app = express();
 
 const corsOptions = {
-    origin: 'https://velvety-cobbler-00314f.netlify.app',
+    origin: 'https://capable-pasca-217f6b.netlify.app/chat',
     credentials: true,
     optionSuccessStatus: 200,
 }

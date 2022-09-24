@@ -38,7 +38,7 @@ const user_1 = require("../models/user");
 const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
-        origin: "https://velvety-cobbler-00314f.netlify.app",
+        origin: "https://capable-pasca-217f6b.netlify.app/chat",
         methods: ["GET", "POST"],
         credentials: true,
     },
