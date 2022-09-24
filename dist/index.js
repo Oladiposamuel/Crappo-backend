@@ -11,8 +11,8 @@ const socketConnect_1 = require("./util/socketConnect");
 const user_1 = __importDefault(require("./routes/user"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: 'https://dancing-syrniki-2bee06.netlify.app',
-    //credentials: true,
+    origin: true,
+    credentials: true,
     //optionSuccessStatus: 200,
 };
 // const allowedOrigins = ['*'];

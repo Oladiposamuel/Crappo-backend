@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 
 export const io = new Server({
     cors: {
-        origin: "https://dancing-syrniki-2bee06.netlify.app",
+        origin: true,
         methods: ["GET", "POST"],
         credentials: true,
     },
