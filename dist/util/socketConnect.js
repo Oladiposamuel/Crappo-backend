@@ -42,6 +42,8 @@ exports.io = new socket_io_1.Server({
         methods: ["GET", "POST"],
         credentials: true,
     },
+    pingTimeout: 7000,
+    pingInterval: 3000
 });
 let userNum;
 exports.Socket = {

@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
     origin: 'https://velvety-cobbler-00314f.netlify.app',
     credentials: true,
-    //optionSuccessStatus: 200,
+    optionSuccessStatus: 200,
 }
 
 // const allowedOrigins = ['*'];

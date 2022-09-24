@@ -9,6 +9,8 @@ export const io = new Server({
         methods: ["GET", "POST"],
         credentials: true,
     },
+    pingTimeout: 7000,
+    pingInterval: 3000
 });
 
 
