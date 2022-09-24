@@ -38,7 +38,7 @@ const user_1 = require("../models/user");
 const crypto = __importStar(require("crypto"));
 exports.io = new socket_io_1.Server({
     cors: {
-        origin: "https://capable-pasca-217f6b.netlify.app/chat",
+        origin: "https://capable-pasca-217f6b.netlify.app",
         methods: ["GET", "POST"],
         credentials: true,
     },
