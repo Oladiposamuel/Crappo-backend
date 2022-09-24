@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 
 export const io = new Server({
     cors: {
-        origin: "https://capable-pasca-217f6b.netlify.app",
+        origin: "https://dancing-syrniki-2bee06.netlify.app",
         methods: ["GET", "POST"],
         credentials: true,
     },
