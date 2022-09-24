@@ -11,7 +11,7 @@ const socketConnect_1 = require("./util/socketConnect");
 const user_1 = __importDefault(require("./routes/user"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: 'https://guileless-alfajores-23e7ff.netlify.app',
+    origin: 'https://velvety-cobbler-00314f.netlify.app',
     credentials: true,
     //optionSuccessStatus: 200,
 };
