@@ -13,7 +13,7 @@ const app = (0, express_1.default)();
 const corsOptions = {
     origin: 'https://dancing-syrniki-2bee06.netlify.app',
     credentials: true,
-    //optionSuccessStatus: 200,
+    optionSuccessStatus: 200,
 };
 // const allowedOrigins = ['*'];
 // const options: cors.CorsOptions = {
